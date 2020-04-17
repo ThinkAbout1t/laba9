@@ -1,0 +1,331 @@
+import numpy as np
+import random
+while True:
+    def buble_sort():
+        
+        def buble_growth(a):
+            global c,k
+            for i in range(1,n):
+                for j in range(n-1,i-1,-1):
+                    if (a[j-1]>a[j]):
+                        c+=1
+                        a[j],a[j-1]=a[j-1],a[j]
+                        k+=1
+            return a
+        def buble_decrease(a):
+            global c,k
+            for i in range(1,n):
+                for j in range(n-1,i-1,-1):
+                    if (a[j-1]<a[j]):
+                        c+=1
+                        a[j],a[j-1]=a[j-1],a[j]
+                        k+=1
+            return a
+        while True:
+            try:
+                answer=int(input('Enter the sorted you want(growth-1;decrease-2):'))
+                if answer==1:
+                    return buble_growth(a)
+                elif answer==2:
+                    return buble_decrease(a)
+                else:
+                    return '1 or 2'
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+        
+    def selection_sort():
+
+        def selection_growth(a):
+            global c,k
+            for i in range(n-1):
+                m=i
+                for j in range(i+1,n):
+                    if a[j] < a[m]:
+                        m=j
+                        c+=1
+                a[i],a[m]=a[m],a[i]
+                k+=1
+            return a
+        def selection_decrease(a):
+            global c,k
+            for i in range(n-1):
+                m=i
+                for j in range(i+1,n):
+                    if a[j] > a[m]:
+                        c+=1
+                        m=j
+                a[i],a[m]=a[m],a[i]
+                k+=1
+            return a
+        
+        while True:
+            try:
+                answer=int(input('Enter the sorted you want(growth-1;decrease-2):'))
+                if answer==1:
+                    return selection_growth(a)
+                elif answer==2:
+                    return selection_decrease(a)
+                else:
+                    return '1 or 2'
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+
+        
+    def insertion_sort():
+        
+        def insertion_growth(a):
+            global c,k
+            for i in range(1,n):
+                j=i-1
+                key=a[i]
+                while j>=0 and a[j]>key:
+                    c+=2
+                    a[j+1]=a[j]
+                    k+=1
+                    j-=1
+                a[j+1]=key
+                k+=1
+            return a
+        def insertion_decrease(a):
+            global c,k
+            for i in range(1,n):
+                j=i-1
+                key=a[i]
+                while j>=0 and a[j]<key:
+                    c+=2
+                    a[j+1]=a[j]
+                    k+=1
+                    j-=1
+                a[j+1]=key
+                k+=1
+            return a
+        while True:
+            try:
+                answer=int(input('Enter the sorted you want(growth-1;decrease-2):'))
+                if answer==1:
+                    return insertion_growth(a)
+                elif answer==2:
+                    return insertion_decrease(a)
+                else:
+                    return '1 or 2'
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+
+                
+    def cocktail_sort(a):
+
+        def cocktail_growth(a):
+            global c,k
+            up = range(len(a) - 1)       
+            while True:
+                for indices in (up, reversed(up)):
+                    swapped = False
+                    for i in indices:
+                        if a[i] > a[i+1]:
+                            c+=1
+                            a[i], a[i+1] = a[i+1], a[i]
+                            k+=1
+                            swapped = True
+                    if not swapped:
+                        return a
+        def cocktail_decrease(a):
+            global c,k
+            up = range(len(a) - 1)       
+            while True:
+                for indices in (up, reversed(up)):
+                    swapped = False
+                    for i in indices:
+                        if a[i] < a[i+1]:
+                            c+=1
+                            a[i], a[i+1] =  a[i+1], a[i]
+                            k+=1
+                            swapped = True
+                    if not swapped:
+                        return a
+        while True:
+            try:
+                answer=int(input('Enter the sorted you want(growth-1;decrease-2):'))
+                if answer==1:
+                    return cocktail_growth(a)
+                elif answer==2:
+                    return cocktail_decrease(a)
+                else:
+                    return '1 or 2'
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+
+
+    def shell_sort(a):
+
+        def shell_growth(a):
+            global c,k
+            inc = len(a) // 2
+            while inc:
+                for i, el in enumerate(a):
+                    while i >= inc and a[i - inc] > el:
+                        c+=2
+                        a[i] = a[i - inc]
+                        k+=1
+                        i -= inc
+                    a[i] = el
+                    k+=1
+                inc = 1 if inc == 2 else int(inc * 5.0 / 11)
+            return a
+        def shell_decrease(a):
+            global c,k
+            inc = len(a) // 2
+            while inc:
+                for i, el in enumerate(a):
+                    while i >= inc and a[i - inc] < el:
+                        c+=2
+                        a[i] = a[i - inc]
+                        k+=1
+                        i -= inc
+                    a[i] = el
+                    k+=1
+                inc = 1 if inc == 2 else int(inc * 5.0 / 11)
+            return a
+        while True:
+            try:
+                answer=int(input('Enter the sorted you want(growth-1;decrease-2):'))
+                if answer==1:
+                    return shell_growth(a)
+                elif answer==2:
+                    return shell_decrease(a)
+                else:
+                    return '1 or 2'
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+
+
+    def heapify(a, n, i):
+        global c,k
+        for i in range(n):
+            largest = i
+            l = 2 * i + 1	 
+            r = 2 * i + 2	  
+            if l < n and a[i] < a[l]:
+                c+=2
+                largest = l  
+            if r < n and a[largest] < a[r]:
+                c+=2
+                largest = r 
+            if largest != i:
+                c+=1
+                a[i],a[largest] = a[largest],a[i]
+                k+=1
+                heapify(a, n, largest)
+		
+    def heapify_de(arr, n, i):
+        global c,k
+        for i in range(n):
+            smallest = i  
+            l = 2 * i + 1
+            r = 2 * i + 2  
+            if l < n and arr[l] < a[smallest]:
+                c+=2
+                smallest = l  
+            if r < n and arr[r] < a[smallest]:
+                c+=2
+                smallest = r 
+            if smallest != i:
+                c+=1
+                (a[i], a[smallest]) = (a[smallest], a[i]) 
+                heapify_de(a, n, smallest)
+                k+=1
+
+    def heap_Sort(a):
+        
+        def heap_growth(a):
+            for i in range(n//2 - 1, -1, -1): 
+                    heapify(a, n, i) 
+            for i in range(n-1, 0, -1): 
+                    a[i], a[0] = a[0], a[i] 
+                    heapify(a, i, 0)
+            return a
+        def heap_decrease(a):
+            for i in range(n//2 - 1, -1, -1): 
+                    heapify_de(a, n, i) 
+            for i in range(n-1, 0, -1): 
+                    a[i], a[0] = a[0], a[i] 
+                    heapify_de(a, i, 0)
+            return a
+        while True:
+            try:
+                answer=int(input('Enter the sorted you want(growth-1;decrease-2):'))
+                if answer==1:
+                    return heap_growth(a)
+                elif answer==2:
+                    return heap_decrease(a)
+                else:
+                    return '1 or 2'
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")   
+
+    def answer(a):
+
+        while True:
+            try:
+                answer=int(input('Enter the method you want(buble-1;selection-2;insertion-3;cocktail-4;shell-5;heap-6):'))
+                if answer==1:
+                    print(buble_sort())
+                    print(c)
+                    print(k)
+                elif answer==2:
+                    print(selection_sort())
+                    print(c)
+                    print(k)
+                elif answer==3:
+                    print(insertion_sort())
+                    print(c)
+                    print(k)
+                elif answer==4:
+                    print(cocktail_sort(a))
+                    print(c)
+                    print(k)
+                elif answer==5:
+                    print(shell_sort(a))
+                    print(c)
+                    print(k)
+                elif answer==6:
+                    print(heap_Sort(a))
+                    print(c)
+                    print(k)
+                break
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")     
+
+    while True:
+        try:       
+            answer1=int(input('Enter the method you want(1-random;2-handmade)'))
+            if answer1==1:
+                a = np.zeros(10, dtype= int)
+                for i in range(10):
+                    a[i]=random.randint(0,1000)
+                print(a)
+                n=len(a)
+                c=0
+                k=0
+                answer(a)
+            elif answer1==2:
+                q=int(input('size:'))
+                if q>30:
+                    print('gg')
+                else:
+                    a = np.zeros(q, dtype= int)
+                    for i in range(q):
+                        a[i]=int(input())
+                    print(a)
+                    n=len(a)
+                    c=0
+                    k=0
+                    answer(a)
+            break
+        except ValueError: 
+            print("Oops!  That was no valid number.  Try again...")
+    print(f'Do you want to restart your program?\nIf YES - enter \'1\'\n   NO  - enter smth else')
+    answer = input()
+    if answer == '1':
+        continue
+    else:
+        break
